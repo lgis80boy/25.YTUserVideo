@@ -70,7 +70,7 @@ class YTUserVideo{ // class start
         $video = simplexml_load_file('http://gdata.youtube.com/feeds/base/users/'.$this->_user.'/uploads?max-results=1&start-index='.$index);
         $videoId = str_replace('http://gdata.youtube.com/feeds/base/videos/', '', (string)($video->entry->id));
         $videoContent = $this->getContent($video->entry->content);
-		$videoPublish = strtotime($video->entry->published);
+        $videoPublish = strtotime($video->entry->published);
 
         // 根据视频id获取视频信息
         $content = file_get_contents('http://youtube.com/get_video_info?video_id='.$videoId);
