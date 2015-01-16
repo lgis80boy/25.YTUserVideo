@@ -70,6 +70,7 @@ class YTUserVideo{ // class start
         $video = simplexml_load_file('http://gdata.youtube.com/feeds/base/users/'.$this->_user.'/uploads?max-results=1&start-index='.$index);
         $videoId = str_replace('http://gdata.youtube.com/feeds/base/videos/', '', (string)($video->entry->id));
         $videoContent = $this->getContent($video->entry->content);
+		$videoPublish = strtotime($video->entry->published);
 
         // 根据视频id获取视频信息
         $content = file_get_contents('http://youtube.com/get_video_info?video_id='.$videoId);
@@ -83,7 +84,7 @@ class YTUserVideo{ // class start
         $info['big_photo'] = $ytarr['iurl'];                  // 大图
         $info['title'] = $ytarr['title'];                     // 标题
         $info['content'] = $videoContent;                     // 简介
-        $info['publish_date'] = $ytarr['timestamp'];          // 发布时间
+        $info['publish_date'] = $videoPublish;                // 发布时间
         $info['length_seconds'] = $ytarr['length_seconds'];   // 视频长度(s)
         $info['view_count'] = $ytarr['view_count'];           // 观看次数
         $info['avg_rating'] = $ytarr['avg_rating'];           // 平均评分
